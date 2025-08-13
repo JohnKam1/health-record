@@ -32,3 +32,7 @@ minio:
 logging:
   level:
     com.Hootsybit: debug
+
+wechat:
+  appid: wxb3c0d315f90c2236
+  secret: 4980c8ec8a26623468ba675ec0f99483
