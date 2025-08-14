@@ -1,6 +1,6 @@
 package com.Hootsybit.controller;
 
-import com.Hootsybit.entity.HealthRecord;
+import com.Hootsybit.pojo.entity.HealthRecord;
 import com.Hootsybit.service.HealthRecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

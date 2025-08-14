@@ -27,6 +27,21 @@ App<IAppOption>({
                                 this.globalData.token = token
                                 wx.setStorageSync('token', token)
                                 console.log('Token已存储到cookie:', token)
+                                
+                                // 获取token后请求用户信息接口
+                                wx.request({
+                                    url: getApp().globalData.baseUrl + '/api/user/info',
+                                    method: 'GET',
+                                    header: {
+                                        'Authorization': token
+                                    },
+                                    success: (infoRes) => {
+                                        console.log('用户信息:', infoRes.data)
+                                    },
+                                    fail: (err) => {
+                                        console.error('获取用户信息失败:', err)
+                                    }
+                                })
                             } else {
                                 console.warn('获取到的token不是字符串类型:', token)
                             }

@@ -1,7 +1,7 @@
 package com.Hootsybit.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.Hootsybit.entity.FileInfo;
+import com.Hootsybit.pojo.entity.FileInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

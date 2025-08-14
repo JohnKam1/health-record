@@ -1,4 +1,4 @@
-package com.Hootsybit.entity;
+package com.Hootsybit.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

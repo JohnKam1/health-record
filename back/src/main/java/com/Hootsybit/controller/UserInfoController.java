@@ -1,6 +1,8 @@
 package com.Hootsybit.controller;
 
-import com.Hootsybit.entity.UserInfo;
+import com.Hootsybit.common.Result;
+import com.Hootsybit.pojo.entity.UserInfo;
+import com.Hootsybit.pojo.vo.UserInfoVO;
 import com.Hootsybit.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 @Tag(name = "用户信息管理", description = "用户信息相关的API")
-public class UserInfoController {
+public class UserInfoController extends BaseController {
 
     @Autowired
     private UserInfoService userInfoService;
@@ -23,10 +25,12 @@ public class UserInfoController {
         return userInfoService.save(userInfo);
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "根据ID获取用户信息", description = "根据提供的用户ID获取用户详细信息")
-    public UserInfo getUserInfo(@PathVariable Long id) {
-        return userInfoService.getById(id);
+    @GetMapping("/info")
+    @Operation(summary = "获取当前用户信息", description = "获取当前登录用户的详细信息")
+    public Result<UserInfoVO> getCurrentUserInfo() {
+        // 获取当前用户ID
+        Long userId = getUserId();
+        return Result.success(userInfoService.getUserInfoVO(userId));
     }
 
     @GetMapping

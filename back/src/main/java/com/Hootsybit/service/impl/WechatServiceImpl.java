@@ -1,6 +1,6 @@
 package com.Hootsybit.service.impl;
 
-import com.Hootsybit.entity.UserInfo;
+import com.Hootsybit.pojo.entity.UserInfo;
 import com.Hootsybit.service.UserInfoService;
 import com.Hootsybit.service.WeChatService;
 import com.Hootsybit.utils.JwtUtils;
@@ -59,12 +59,12 @@ public class WechatServiceImpl implements WeChatService {
 
             // 使用openId查询用户表，如果不存在，创建用户
             UserInfo currentUser = userInfoService.lambdaQuery()
-                    .eq(UserInfo::getOpenid, openid)
+                    .eq(UserInfo::getOpenId, openid)
                     .one();
 
             if(Objects.isNull(currentUser)){
                 currentUser = new UserInfo()
-                        .setOpenid(openid);
+                        .setOpenId(openid);
 
                 userInfoService.save(currentUser);
             }

@@ -1,6 +1,6 @@
 package com.Hootsybit.controller;
 
-import com.Hootsybit.entity.FileInfo;
+import com.Hootsybit.pojo.entity.FileInfo;
 import com.Hootsybit.service.FileInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

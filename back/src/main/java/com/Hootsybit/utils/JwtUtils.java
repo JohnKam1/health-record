@@ -49,18 +49,6 @@ public class JwtUtils {
     }
     
     /**
-     * 从Token中获取用户ID
-     * @param token JWT Token
-     * @return 用户ID
-     */
-    public static String getUserIdFromToken(String token) {
-        Claims claims = parseToken(token);
-        return claims.getSubject();
-    }
-
-    // todo 当用户token过期时，需要前端重新传临时code
-    
-    /**
      * 验证Token是否有效
      * @param token JWT Token
      * @return 是否有效
@@ -70,8 +58,22 @@ public class JwtUtils {
             Claims claims = parseToken(token);
             return !claims.getExpiration().before(new Date());
         } catch (Exception e) {
-            log.error("Token验证失败", e);
+            // log.error("Token验证失败", e);
             return false;
+        }
+    }
+    
+    /**
+     * 从Token中获取用户ID
+     * @param token JWT Token
+     * @return 用户ID
+     */
+    public static String getUserIdFromToken(String token) {
+        try {
+            Claims claims = parseToken(token);
+            return claims.getSubject();
+        } catch (Exception e) {
+            return null;
         }
     }
 }
