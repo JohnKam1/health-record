@@ -21,6 +21,10 @@
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </block>
     </view>
+    <!-- 添加进入系统的按钮 -->
+    <view class="enter-system-wrapper" wx:if="{{hasUserInfo}}">
+      <button class="enter-system-button" bindtap="enterSystem">进入系统</button>
+    </view>
     <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>

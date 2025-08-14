@@ -50,5 +50,11 @@ Component({
         }
       })
     },
+    // 添加进入系统按钮的点击处理函数
+    enterSystem() {
+      wx.navigateTo({
+        url: '../home/home',
+      })
+    },
   },
 })

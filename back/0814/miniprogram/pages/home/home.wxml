@@ -1,0 +1,10 @@
+<!--home.wxml-->
+<navigation-bar title="健康档案" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+<view class="container">
+  <view class="welcome">
+    <text class="welcome-text">欢迎使用健康档案系统</text>
+  </view>
+  <view class="content">
+    <text class="content-text">这里是系统的主页，您可以在这里查看和管理您的健康档案信息。</text>
+  </view>
+</view>
