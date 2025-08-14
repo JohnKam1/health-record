@@ -1,7 +1,9 @@
 package com.Hootsybit.config;
 
 import com.Hootsybit.utils.JwtUtils;
-import com.Hootsybit.exception.TokenValidationException;
+// 修改引用的异常类
+import com.Hootsybit.exception.GlobalException;
+import com.Hootsybit.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -27,7 +29,8 @@ public class JwtInterceptor implements HandlerInterceptor {
         
         // 如果token为空或无效，抛出异常
         if (token == null || token.isEmpty() || !JwtUtils.validateToken(token)) {
-            throw new TokenValidationException("Token无效或已过期");
+            // 使用枚举类抛出异常
+            throw new GlobalException(ErrorCode.TOKEN_INVALID);
         }
         
         // 解析token并将用户ID放入ThreadLocal
