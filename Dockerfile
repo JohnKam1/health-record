@@ -23,5 +23,5 @@ COPY --from=build /app/target/*.jar app.jar
 # 暴露端口 8080
 EXPOSE 8080
 
-# 运行应用程序，指定使用生产环境配置
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+# 运行应用程序，指定使用生产环境配置并限制内存使用
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-Xmx300m", "-Xms128m", "-XX:MaxMetaspaceSize=128m", "-jar", "app.jar"]
