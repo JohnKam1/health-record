@@ -1,3 +1,5 @@
 /back/target
 /back/.idea/
 /back*.log
+!run-local*.sh
+!run-local*.bat
