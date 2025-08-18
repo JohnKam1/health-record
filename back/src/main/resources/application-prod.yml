@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: health-record-backend
+  datasource:
+    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/health_record
+    username: postgres.solijuztkavjceuojmis
+    password: 7E_TE8FcYBk4jZy
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+#  elasticsearch:
+#    uris: http://localhost:9200
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+#minio:
+#  endpoint: http://localhost:9000
+#  access-key: minioadmin
+#  secret-key: minioadmin
+#  bucket-name: health-record
+
+logging:
+  level:
+    com.Hootsybit: debug
+
+wechat:
+  appid: wxb3c0d315f90c2236
+  secret: 4980c8ec8a26623468ba675ec0f99483
