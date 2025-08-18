@@ -1,3 +1,5 @@
+环境切换参数 -Dspring.profiles.active=prod
+
 # 健康档案管理系统后端
 
 ## 项目概述
