@@ -3,3 +3,4 @@
 /back*.log
 run-local*.sh
 run-local*.bat
+/back/src/main/resources/application-prod.yml
