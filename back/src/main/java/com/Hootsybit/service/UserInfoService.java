@@ -14,4 +14,14 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return UserInfoVO 包含用户基本信息和完整状态标记的视图对象，如果用户不存在则返回null
      */
     UserInfoVO getUserInfoVO(Long userId);
+
+    /**
+     * 更新用户头像和昵称
+     *
+     * @param userId 用户ID
+     * @param avatar 头像URL
+     * @param nickname 昵称
+     * @return 是否更新成功
+     */
+    boolean updateAvatarAndNickname(Long userId, String avatar, String nickname);
 }

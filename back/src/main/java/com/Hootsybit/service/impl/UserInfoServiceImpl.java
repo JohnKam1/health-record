@@ -35,4 +35,16 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         // 返回组装好的用户信息视图对象
         return vo;
     }
+
+    @Override
+    public boolean updateAvatarAndNickname(Long userId, String avatar, String nickname) {
+        // 创建用户信息对象
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(userId);
+        userInfo.setAvatar(avatar);
+        userInfo.setNickname(nickname);
+        
+        // 更新用户信息
+        return this.updateById(userInfo);
+    }
 }

@@ -3,6 +3,9 @@
 const app = getApp<IAppOption>()
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
+// 引入封装的请求函数
+import { request } from '../../utils/request'
+
 Component({
   data: {
     motto: 'Hello World',
@@ -52,8 +55,31 @@ Component({
     },
     // 添加进入系统按钮的点击处理函数
     enterSystem() {
-      wx.navigateTo({
-        url: '../home/home',
+      // 当用户点击进入系统按钮时，向后端发送头像和昵称
+      const { avatarUrl, nickName } = this.data.userInfo
+      
+      // 发起异步请求将头像和昵称发送到后端
+      request({
+        url: app.globalData.baseUrl + '/api/user/avatar-nickname',
+        method: 'POST',
+        data: {
+          avatar: avatarUrl,
+          nickname: nickName
+        },
+        success: (res) => {
+          console.log('头像和昵称已发送到后端:', res)
+          // 跳转到home页面
+          wx.navigateTo({
+            url: '../home/home',
+          })
+        },
+        fail: (err) => {
+          console.error('发送头像和昵称失败:', err)
+          // 即使发送失败，也跳转到home页面
+          wx.navigateTo({
+            url: '../home/home',
+          })
+        }
       })
     },
   },

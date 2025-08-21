@@ -2,6 +2,7 @@ package com.Hootsybit.controller;
 
 import com.Hootsybit.common.Result;
 import com.Hootsybit.pojo.entity.UserInfo;
+import com.Hootsybit.pojo.qo.AvatarNicknameQo;
 import com.Hootsybit.pojo.vo.UserInfoVO;
 import com.Hootsybit.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,6 +32,16 @@ public class UserInfoController extends BaseController {
         // 获取当前用户ID
         Long userId = getUserId();
         return Result.success(userInfoService.getUserInfoVO(userId));
+    }
+
+    @PostMapping("/avatar-nickname")
+    @Operation(summary = "设置用户头像和昵称", description = "异步设置用户头像和昵称")
+    public Result<Boolean> setAvatarAndNickname(@RequestBody AvatarNicknameQo request) {
+        // 获取当前用户ID
+        Long userId = getUserId();
+        // 调用服务层方法更新用户头像和昵称
+        boolean result = userInfoService.updateAvatarAndNickname(userId, request.getAvatar(), request.getNickname());
+        return Result.success(result);
     }
 
     @GetMapping
