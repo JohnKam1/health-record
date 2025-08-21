@@ -53,34 +53,82 @@ Component({
         }
       })
     },
+    // 上传头像到后端服务器
+    uploadAvatar(avatarUrl: string): Promise<string> {
+      return new Promise((resolve, reject) => {
+        // // 如果是网络图片，直接返回
+        // if (avatarUrl.startsWith('http')) {
+        //   resolve(avatarUrl);
+        //   return;
+        // }
+        
+        // 上传文件到后端
+        wx.uploadFile({
+          url: app.globalData.baseUrl + '/api/file/upload',
+          filePath: avatarUrl,
+          name: 'file',
+          header: {
+            'Authorization': app.globalData.token
+          },
+          success: (res) => {
+            console.log('上传结果:', res)
+            if (res.statusCode === 200) {
+              const data = JSON.parse(res.data);
+              if (data.code === 200) {
+                // 返回上传后的文件访问URL
+                resolve(data.data);
+              } else {
+                reject(new Error('上传失败: ' + data.message));
+              }
+            } else {
+              reject(new Error('上传失败，状态码: ' + res.statusCode));
+            }
+          },
+          fail: (err) => {
+            reject(err);
+          }
+        });
+      });
+    },
     // 添加进入系统按钮的点击处理函数
     enterSystem() {
-      // 当用户点击进入系统按钮时，向后端发送头像和昵称
-      const { avatarUrl, nickName } = this.data.userInfo
+      // 当用户点击进入系统按钮时，先上传头像再发送头像和昵称到后端
+      const { avatarUrl, nickName } = this.data.userInfo;
       
-      // 发起异步请求将头像和昵称发送到后端
-      request({
-        url: app.globalData.baseUrl + '/api/user/avatar-nickname',
-        method: 'POST',
-        data: {
-          avatar: avatarUrl,
-          nickname: nickName
-        },
-        success: (res) => {
-          console.log('头像和昵称已发送到后端:', res)
-          // 跳转到home页面
+      // 上传头像并发送用户信息到后端
+      this.uploadAvatar(avatarUrl)
+        .then((uploadedAvatarUrl) => {
+          // 发起异步请求将头像和昵称发送到后端
+          request({
+            url: app.globalData.baseUrl + '/api/user/avatar-nickname',
+            method: 'POST',
+            data: {
+              avatar: uploadedAvatarUrl,
+              nickname: nickName
+            },
+            success: (res) => {
+              console.log('头像和昵称已发送到后端:', res)
+              // 跳转到home页面
+              wx.navigateTo({
+                url: '../home/home',
+              })
+            },
+            fail: (err) => {
+              console.error('发送头像和昵称失败:', err)
+              // 即使发送失败，也跳转到home页面
+              wx.navigateTo({
+                url: '../home/home',
+              })
+            }
+          })
+        })
+        .catch((err) => {
+          console.error('上传头像失败:', err)
+          // 即使上传失败，也跳转到home页面
           wx.navigateTo({
             url: '../home/home',
           })
-        },
-        fail: (err) => {
-          console.error('发送头像和昵称失败:', err)
-          // 即使发送失败，也跳转到home页面
-          wx.navigateTo({
-            url: '../home/home',
-          })
-        }
-      })
+        });
     },
   },
 })
