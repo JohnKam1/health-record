@@ -1,14 +1,12 @@
 // request.ts
 import { IAppOption } from '../appoption'
 
-// 获取全局应用实例
-const app = getApp<IAppOption>()
-
 /**
  * 封装的网络请求函数
  * @param options 请求参数
+ * @param app 全局应用实例
  */
-export function request(options: WechatMiniprogram.RequestOption) {
+export function request(options: WechatMiniprogram.RequestOption, app: IAppOption) {
   // 如果没有传入header，则初始化一个空对象
   if (!options.header) {
     options.header = {}

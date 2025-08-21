@@ -1,12 +1,13 @@
 // app.ts
 import { IAppOption } from './appoption'
+import { request } from './utils/request'
 
 // 抽取登录逻辑为独立函数
 function performLogin(app: IAppOption) {
     wx.login({
         success: res => {
             console.log("用户临时code： " + res.code)
-            wx.request({
+            request({
                 url: app.globalData.baseUrl + '/api/wechat/login?code=' + res.code,
                 method: 'POST',
                 success: (loginRes) => {
@@ -30,19 +31,16 @@ function performLogin(app: IAppOption) {
                     console.error('请求地址:', app.globalData.baseUrl + '/api/wechat/login?code=' + res.code)
                     console.error('请检查后端服务是否正常运行，网络连接是否正常')
                 }
-            })
+            }, app)
         },
     })
 }
 
 // 将 fetchUserInfo 定义为一个独立函数，传递 app 实例
 function fetchUserInfo(token: string, app: IAppOption) {
-    wx.request({
+    request({
         url: app.globalData.baseUrl + '/api/user/info',
         method: 'GET',
-        header: {
-            'Authorization': token
-        },
         success: (infoRes) => {
             console.log('用户信息:', infoRes.data)
             // 增加对特定错误码的处理
@@ -62,7 +60,7 @@ function fetchUserInfo(token: string, app: IAppOption) {
         fail: (err) => {
             console.error('获取用户信息失败:', err)
         }
-    })
+    }, app)
 }
 
 App<IAppOption>({

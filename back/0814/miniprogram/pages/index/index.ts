@@ -56,44 +56,45 @@ Component({
     // 上传头像到后端服务器
     uploadAvatar(avatarUrl: string): Promise<string> {
       return new Promise((resolve, reject) => {
-        // // 如果是网络图片，直接返回
-        // if (avatarUrl.startsWith('http')) {
-        //   resolve(avatarUrl);
-        //   return;
-        // }
-        
-        // 上传文件到后端
-        wx.uploadFile({
-          url: app.globalData.baseUrl + '/api/file/upload',
-          filePath: avatarUrl,
-          name: 'file',
-          header: {
-            'Authorization': app.globalData.token
-          },
-          success: (res) => {
-            console.log('上传结果:', res)
-            if (res.statusCode === 200) {
-              const data = JSON.parse(res.data);
-              if (data.code === 200) {
-                // 返回上传后的文件访问URL
-                resolve(data.data);
+        // 如果是临时文件路径（以tmp开头），需要上传到服务器
+        if (avatarUrl.startsWith('http://tmp') || avatarUrl.startsWith('https://tmp')) {
+          // 上传文件到后端
+          wx.uploadFile({
+            url: app.globalData.baseUrl + '/api/file/upload',
+            filePath: avatarUrl,
+            name: 'file',
+            header: {
+              'Authorization': app.globalData.token
+            },
+            success: (res) => {
+              if (res.statusCode === 200) {
+                const data = JSON.parse(res.data);
+                if (data.code === 200) {
+                  // 返回上传后的文件访问URL
+                  resolve(data.data);
+                } else {
+                  reject(new Error('上传失败: ' + data.message));
+                }
               } else {
-                reject(new Error('上传失败: ' + data.message));
+                reject(new Error('上传失败，状态码: ' + res.statusCode));
               }
-            } else {
-              reject(new Error('上传失败，状态码: ' + res.statusCode));
+            },
+            fail: (err) => {
+              reject(err);
             }
-          },
-          fail: (err) => {
-            reject(err);
-          }
-        });
+          });
+        } else {
+          // 如果是网络图片（包括已上传的图片），直接返回
+          resolve(avatarUrl);
+        }
       });
     },
     // 添加进入系统按钮的点击处理函数
     enterSystem() {
       // 当用户点击进入系统按钮时，先上传头像再发送头像和昵称到后端
       const { avatarUrl, nickName } = this.data.userInfo;
+      // 获取应用实例
+      const app = getApp<IAppOption>();
       
       // 上传头像并发送用户信息到后端
       this.uploadAvatar(avatarUrl)
@@ -120,7 +121,7 @@ Component({
                 url: '../home/home',
               })
             }
-          })
+          }, app)
         })
         .catch((err) => {
           console.error('上传头像失败:', err)
