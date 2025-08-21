@@ -68,8 +68,8 @@ function fetchUserInfo(token: string, app: IAppOption) {
 App<IAppOption>({
     globalData: {
         token: '',
-        // baseUrl: 'http://localhost:8080'
-        baseUrl: 'https://health-record-y6ve.onrender.com'
+        baseUrl: 'http://localhost:8080'
+        // baseUrl: 'https://health-record-y6ve.onrender.com'
     },
     onLaunch() {
         // 展示本地存储能力

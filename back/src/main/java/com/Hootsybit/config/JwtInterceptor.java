@@ -29,6 +29,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         
         // 如果token为空或无效，抛出异常
         if (token == null || token.isEmpty() || !JwtUtils.validateToken(token)) {
+            log.error("Token无效或已过期");
             // 使用枚举类抛出异常
             throw new GlobalException(ErrorCode.TOKEN_INVALID);
         }
