@@ -54,8 +54,26 @@ function fetchUserInfo(token: string, app: IAppOption) {
                     
                     // 重新执行登录逻辑
                     performLogin(app);
+                    return;
                 }
             }
+            
+            // 检查用户信息是否完整
+            if (infoRes.data && typeof infoRes.data === 'object' && 'data' in infoRes.data) {
+                const userData = infoRes.data.data;
+                // 如果用户信息完整（complete为true），则直接进入系统
+                if (userData && typeof userData === 'object' && 'complete' in userData && userData.complete === true) {
+                    console.log('用户信息完整，直接进入系统');
+                    // 这里可以添加进入系统的逻辑，比如跳转到首页
+                    // wx.navigateTo({ url: '/pages/home/home' });
+                    return;
+                }
+            }
+            
+            // 用户信息不完整，需要重新设置头像和昵称
+            console.log('用户信息不完整，需要重新设置头像和昵称');
+            // 可以在这里添加跳转到设置页面的逻辑
+            // wx.navigateTo({ url: '/pages/index/index' });
         },
         fail: (err) => {
             console.error('获取用户信息失败:', err)

@@ -1,5 +1,7 @@
 package com.Hootsybit.service.impl;
 
+import com.Hootsybit.exception.ErrorCode;
+import com.Hootsybit.exception.GlobalException;
 import com.Hootsybit.pojo.entity.UserInfo;
 import com.Hootsybit.service.UserInfoService;
 import com.Hootsybit.service.WeChatService;
@@ -52,7 +54,8 @@ public class WechatServiceImpl implements WeChatService {
             String openid = jsonObject.getString("openid");
             if(StringUtils.isBlank(openid)){
                 // todo 如果为空，直接报错
-                log.error("微信登录失败");
+                log.error("微信登录失败|openid为空");
+                throw new GlobalException(ErrorCode.USER_NOT_FOUND);
             }
 
             // todo 要增加逻辑删除标识

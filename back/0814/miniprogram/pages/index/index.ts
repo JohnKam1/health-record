@@ -17,7 +17,46 @@ Component({
     canIUseGetUserProfile: wx.canIUse('getUserProfile'),
     canIUseNicknameComp: wx.canIUse('input.type.nickname'),
   },
+  lifetimes: {
+    attached() {
+      // 页面加载时检查用户信息完整性
+      this.checkUserInfoComplete();
+    }
+  },
   methods: {
+    // 检查用户信息完整性
+    checkUserInfoComplete() {
+      // 获取应用实例
+      const app = getApp<IAppOption>();
+      
+      // 请求用户信息接口，检查是否已经设置过头像和昵称
+      request({
+        url: app.globalData.baseUrl + '/api/user/info',
+        method: 'GET',
+        success: (res) => {
+          console.log('用户信息:', res.data)
+          // 检查用户信息是否完整
+          if (res.data && typeof res.data === 'object' && 'data' in res.data) {
+            const userData = res.data.data;
+            // 如果用户信息完整（complete为true），则直接进入系统
+            if (userData && typeof userData === 'object' && 'complete' in userData && userData.complete === true) {
+              console.log('用户信息完整，直接进入系统');
+              // 跳转到home页面
+              wx.navigateTo({
+                url: '../home/home',
+              })
+              return;
+            }
+          }
+          
+          // 用户信息不完整，需要重新设置头像和昵称
+          console.log('用户信息不完整，需要重新设置头像和昵称');
+        },
+        fail: (err) => {
+          console.error('获取用户信息失败:', err)
+        }
+      }, app)
+    },
     // 事件处理函数
     bindViewTap() {
       wx.navigateTo({
