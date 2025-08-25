@@ -2,7 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/home/home"
+    "pages/home/home",
+    "pages/info-management/info-management",
+    "pages/health-record/health-record",
+    "pages/report-management/report-management",
+    "pages/personal-center/personal-center"
   ],
   "window": {
     "navigationBarTextStyle": "black",

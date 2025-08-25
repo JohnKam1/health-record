@@ -1,10 +1,18 @@
 <!--home.wxml-->
-<navigation-bar title="健康档案" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+<navigation-bar title="健康档案" back="{{false}}" color="black" background="#FFF"></navigation-bar>
 <view class="container">
-  <view class="welcome">
-    <text class="welcome-text">欢迎使用健康档案系统</text>
-  </view>
-  <view class="content">
-    <text class="content-text">这里是系统的主页，您可以在这里查看和管理您的健康档案信息。</text>
+  <view class="button-container">
+    <view class="menu-button" bindtap="goToInfoManagement">
+      <text class="button-text">信息管理</text>
+    </view>
+    <view class="menu-button" bindtap="goToHealthRecord">
+      <text class="button-text">健康记录</text>
+    </view>
+    <view class="menu-button" bindtap="goToReportManagement">
+      <text class="button-text">报告管理</text>
+    </view>
+    <view class="menu-button" bindtap="goToPersonalCenter">
+      <text class="button-text">个人中心</text>
+    </view>
   </view>
 </view>

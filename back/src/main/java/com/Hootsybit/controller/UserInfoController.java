@@ -52,8 +52,12 @@ public class UserInfoController extends BaseController {
 
     @PutMapping
     @Operation(summary = "更新用户信息", description = "根据提供的用户信息更新用户记录")
-    public boolean updateUserInfo(@RequestBody UserInfo userInfo) {
-        return userInfoService.updateById(userInfo);
+    public Result<Boolean> updateUserInfo(@RequestBody UserInfo userInfo) {
+        // 获取当前用户ID
+        Long userId = getUserId();
+        userInfo.setId(userId);
+        boolean result = userInfoService.updateById(userInfo);
+        return Result.success(result);
     }
 
     @DeleteMapping("/{id}")

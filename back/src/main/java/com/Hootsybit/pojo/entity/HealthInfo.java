@@ -9,9 +9,9 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("user_info")
+@TableName("health_info")
 @Accessors(chain = true)
-public class UserInfo {
+public class HealthInfo {
     /**
      * 主键
      */
@@ -19,45 +19,37 @@ public class UserInfo {
     private Long id;
 
     /**
-     * 微信唯一id
+     * 用户ID，关联用户表
      */
-    private String openId;
+    private Long userId;
 
-    /**
-     * 昵称
-     */
-    private String nickname;
-
-    /**
-     * 头像路径
-     */
-    private String avatar;
-
-    /**
-     * 姓名
-     */
-    private String name;
-    
-    /**
-     * 年龄
-     */
-    private Integer age;
-    
-    /**
-     * 性别
-     */
-    private String gender;
-    
     /**
      * 身高(cm)
      */
     private Double height;
-    
+
     /**
      * 体重(kg)
      */
     private Double weight;
-    
+
+    /**
+     * 年龄
+     */
+    private Integer age;
+
+    /**
+     * 是否吸烟(0-否, 1-是)
+     */
+    private Integer isSmoke;
+
+    /**
+     * 创建时间
+     */
     private LocalDateTime createTime;
+
+    /**
+     * 更新时间
+     */
     private LocalDateTime updateTime;
 }

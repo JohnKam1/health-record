@@ -1,0 +1,48 @@
+<!--info-management.wxml-->
+<navigation-bar title="信息管理" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+<view class="container">
+  <form bindsubmit="saveHealthInfo">
+    <view class="form-item">
+      <text class="label">姓名</text>
+      <input class="input" placeholder="请输入姓名" value="{{name}}" bindinput="onNameInput" />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">年龄</text>
+      <input class="input" type="number" placeholder="请输入年龄" value="{{age}}" bindinput="onAgeInput" />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">身高(cm)</text>
+      <input class="input" type="digit" placeholder="请输入身高" value="{{height}}" bindinput="onHeightInput" />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">体重(kg)</text>
+      <input class="input" type="digit" placeholder="请输入体重" value="{{weight}}" bindinput="onWeightInput" />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">性别</text>
+      <picker mode="selector" range="{{genders}}" value="{{genderIndex}}" bindchange="onGenderChange">
+        <view class="picker">
+          {{genders[genderIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="label">是否吸烟</text>
+      <radio-group class="radio-group" bindchange="onSmokeChange">
+        <label class="radio">
+          <radio value="0" checked="{{isSmoke === 0}}" />否
+        </label>
+        <label class="radio">
+          <radio value="1" checked="{{isSmoke === 1}}" />是
+        </label>
+      </radio-group>
+    </view>
+    
+    <button class="save-btn" type="primary" form-type="submit">保存</button>
+  </form>
+</view>

@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.Hootsybit.mapper.UserInfoMapper">
-    
+<mapper namespace="com.Hootsybit.mapper.HealthInfoMapper">
+
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.Hootsybit.pojo.entity.UserInfo">
+    <resultMap id="BaseResultMap" type="com.Hootsybit.pojo.entity.HealthInfo">
         <id column="id" property="id"/>
-        <result column="open_id" property="openId"/>
-        <result column="nickname" property="nickname"/>
-        <result column="avatar" property="avatar"/>
-        <result column="name" property="name"/>
-        <result column="age" property="age"/>
-        <result column="gender" property="gender"/>
+        <result column="user_id" property="userId"/>
         <result column="height" property="height"/>
         <result column="weight" property="weight"/>
+        <result column="age" property="age"/>
+        <result column="is_smoke" property="isSmoke"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
-    
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, open_id, nickname, avatar, name, age, gender, height, weight, create_time, update_time
+        id, user_id, height, weight, age, is_smoke, create_time, update_time
     </sql>
-    
+
 </mapper>

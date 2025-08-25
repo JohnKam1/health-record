@@ -1,0 +1,7 @@
+<!--report-management.wxml-->
+<navigation-bar title="报告管理" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+<view class="container">
+  <view class="header">
+    <text class="header-text">报告管理页面</text>
+  </view>
+</view>

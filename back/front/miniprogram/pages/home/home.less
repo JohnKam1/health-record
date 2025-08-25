@@ -13,28 +13,30 @@ page {
   padding: 20rpx;
 }
 
-.welcome {
+.button-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin-top: 100rpx;
+  padding: 0 40rpx;
 }
 
-.welcome-text {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333;
-}
-
-.content {
-  margin-top: 50rpx;
-  padding: 30rpx;
+.menu-button {
+  height: 120rpx;
   background-color: white;
   border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 
-.content-text {
-  font-size: 28rpx;
-  color: #666;
-  line-height: 1.6;
+.menu-button:last-child {
+  margin-bottom: 0;
+}
+
+.button-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
 }

@@ -1,0 +1,7 @@
+<!--personal-center.wxml-->
+<navigation-bar title="个人中心" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+<view class="container">
+  <view class="header">
+    <text class="header-text">个人中心页面</text>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+<!--health-record.wxml-->
+<navigation-bar title="健康记录" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+<view class="container">
+  <view class="header">
+    <text class="header-text">健康记录页面</text>
+  </view>
+</view>
