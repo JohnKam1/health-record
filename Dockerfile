@@ -20,11 +20,14 @@ WORKDIR /app
 # 从构建阶段复制 jar 文件
 COPY --from=build /app/target/*.jar app.jar
 
-# 复制 Render Secret File（Render 会把它放在 /opt/render/project/src 下）
-COPY --from=build /opt/render/project/src/application-prod.yml ./config/application-prod.yml
-
 # 暴露端口 8080
 EXPOSE 8080
 
 # 运行应用程序，指定使用生产环境配置并限制内存使用
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-Xmx300m", "-Xms128m", "-XX:MaxMetaspaceSize=128m", "-jar", "app.jar"]
+ENTRYPOINT ["java",
+   "-Dspring.profiles.active=prod",
+   "-Dspring.config.location=file:/etc/secrets/application-prod.yml",
+   "-Xmx300m",
+   "-Xms128m",
+   "-XX:MaxMetaspaceSize=128m",
+   "-jar", "app.jar"]
