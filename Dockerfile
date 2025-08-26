@@ -21,7 +21,7 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # 复制 Render Secret File（Render 会把它放在 /opt/render/project/src 下）
-COPY --from=build /etc/secrets/application-prod.yml ./config/application-prod.yml
+COPY --from=build /opt/render/project/src/application-prod.yml ./config/application-prod.yml
 
 # 暴露端口 8080
 EXPOSE 8080
