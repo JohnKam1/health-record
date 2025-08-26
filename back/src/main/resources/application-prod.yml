@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: health-record-backend
+  datasource:
+    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/health_record
+    username: postgres.solijuztkavjceuojmis
+    password: 7E_TE8FcYBk4jZy
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      # 优化连接池配置以减少内存使用
+      maximum-pool-size: 5
+      minimum-idle: 2
+      idle-timeout: 300000
+      max-lifetime: 600000
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    # 减少JPA缓存以节省内存
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: false
+          use_query_cache: false
+
+mybatis-plus:
+  configuration:
+    # 在生产环境中关闭SQL日志以减少内存使用
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  global-config:
+    db-config:
+      id-type: auto
+  # 优化MyBatis-Plus配置以减少内存使用
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+minio:
+  endpoint: https://play.min.io
+  access-key: Q3AM3UQ867SPQQA43P2F
+  secret-key: zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG
+  bucket-name: test-source-bucket-name
+
+logging:
+  level:
+    com.Hootsybit: info
+    # 减少日志级别以节省内存
+    org.springframework: warn
+    org.hibernate: warn
+
+wechat:
+  appid: wxb3c0d315f90c2236
+  secret: 4980c8ec8a26623468ba675ec0f99483
