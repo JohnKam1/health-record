@@ -24,10 +24,4 @@ COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 
 # 运行应用程序，指定使用生产环境配置并限制内存使用
-ENTRYPOINT ["java",
-   "-Dspring.profiles.active=prod",
-   "-Dspring.config.location=file:/etc/secrets/application-prod.yml",
-   "-Xmx300m",
-   "-Xms128m",
-   "-XX:MaxMetaspaceSize=128m",
-   "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-Dspring.config.location=file:/etc/secrets/application-prod.yml", "-Xmx300m", "-Xms128m", "-XX:MaxMetaspaceSize=128m", "-jar", "app.jar"]
