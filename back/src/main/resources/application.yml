@@ -14,7 +14,10 @@ spring:
       ddl-auto: update
     show-sql: true
   elasticsearch:
-    uris: http://localhost:9200
+    uris: https://<cluster-id>.<region>.aws.found.io:9243
+    connection-timeout: 10s
+    socket-timeout: 30s
+    api-key: R2ltYTZaZ0JJbDNyZUV5WjFESXk6Rkw0aU9mekFFZGEyREdrb1dDREhwdw==
 
 mybatis-plus:
   configuration:
